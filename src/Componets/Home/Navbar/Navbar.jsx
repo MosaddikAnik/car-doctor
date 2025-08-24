@@ -1,25 +1,60 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import img from "../../../assets/icons/logo.svg"
+import img from "../../../assets/icons/logo.svg";
+import { AuthContext } from "../../../Authprovider/Authprovider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    return logOut()
+      .then(() => {
+        Swal.fire({
+          title: "Logged Out",
+          text: "You have been signed out successfully.",
+          icon: "success",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Logout Failed",
+          text: error.message,
+          icon: "error",
+        });
+      });
+  };
   const navbar = (
     <>
       <li>
-        <Link to='/'>Home</Link>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to='/about'>About</Link>
+        <Link to="/about">About</Link>
       </li>
       <li>
-        <Link to='/services'>Services</Link>
+        <Link to="/services">Services</Link>
       </li>
       <li>
-        <Link to='/blog'>Blog</Link>
+        <Link to="/blog">Blog</Link>
       </li>
       <li>
-        <Link to='/contact'>Contact</Link>
+        <Link to="/contact">Contact</Link>
       </li>
+
+      {user ? (
+        <>
+          <li>
+            <Link onClick={handleLogOut}>Log out</Link>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -50,14 +85,12 @@ const Navbar = () => {
             {navbar}
           </ul>
         </div>
-      <div>
-            <img className="w-[80%]" src={img} alt="" />
-      </div>
+        <div>
+          <img className="w-[80%]" src={img} alt="" />
+        </div>
       </div>
       <div className="navbar-center  hidden lg:flex">
-        <ul className="menu menu-horizontal lg:text-xl px-1">
-         {navbar}
-        </ul>
+        <ul className="menu menu-horizontal lg:text-xl px-1">{navbar}</ul>
       </div>
       <div className="navbar-end">
         <a className="btn border-[#FF3811] text-[#FF3811]">Appointment</a>

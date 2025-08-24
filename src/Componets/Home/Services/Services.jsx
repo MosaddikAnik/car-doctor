@@ -31,6 +31,9 @@ const Services = () => {
           <ServicesCart key={service._id} item={service} />
         ))}
       </div>
+     <div className="items-center justify-center flex mt-8">
+        <a className="btn border-[#FF3811]  text-[#FF3811]">More Services</a>
+     </div>
     </div>
   );
 };
