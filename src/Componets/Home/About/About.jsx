@@ -4,7 +4,7 @@ import img2 from "../../../assets/images/about_us/parts.jpg";
 
 const About = () => {
   return (
-    <section className="flex flex-col lg:flex-row items-center gap-12 px-6 lg:px-20 py-16">
+    <section id="about" className="flex flex-col lg:flex-row items-center gap-12 px-6 lg:px-20 py-16">
       <div className="relative flex-1">
         <img
           src={img}
